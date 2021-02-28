@@ -4,12 +4,6 @@ services:
   onedaydb:
     container_name: onedaydb
     image: mysql:5.7
-    environment:
-      MYSQL_DATABASE: oneday
-      MYSQL_PASSWORD: "shu4kuo1etoemi1Z"
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_ROOT_PASSWORD: "Jaiwae7mei5keeng"
-      MYSQL_USER: oneday
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
@@ -34,10 +28,6 @@ services:
       APP_ENV: "production"
       BUNDLE_DISABLE_SHARED_GEMS: "true"
       BUNDLE_PATH: "/home/app/vendor/bundle"
-      DB_DB: oneday
-      DB_HOST: onedaydb
-      DB_PASS: "shu4kuo1etoemi1Z"
-      DB_USER: oneday
       HOME: "/home/app"
       RACK_ENV: "production"
     ports:
