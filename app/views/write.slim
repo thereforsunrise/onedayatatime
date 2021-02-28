@@ -1,0 +1,11 @@
+h2 Write
+
+form class="pure-form pure-form-stacked" action="/write/#{@entry.date}" method="post"
+  == csrf_tag
+  input type="hidden" name="_method" value="PUT"
+  input id="x" value="#{@entry.content}" type="hidden" name="content"
+  div id="toolbar" class="toolbar"
+  trix-editor toolbar="toolbar" input="x" id="editor" class="trix-content #{@is_current_date ? '' : 'readonly'} "
+  br
+  - if @is_current_date
+      button type="submit" class="pure-button" id="save" name="save" Save

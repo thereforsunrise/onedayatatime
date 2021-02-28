@@ -1,0 +1,12 @@
+h2 Signup
+
+form class="pure-form pure-form-stacked" method="post" action="/signup"
+  == csrf_tag
+  label for="username" Username
+  input type="text" id="username" name="username"
+  label for="password" Password
+  input type="password" id="password" name="password"
+  label for="password_confirmation" Password Confrimation
+  input type="password" id="password_confirmation" name="password_confirmation"
+  br
+  button type="submit" class="pure-button" id="signup" name="signup" Sign-up

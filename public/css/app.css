@@ -1,0 +1,47 @@
+#content {
+  margin: auto;
+  width: 800px;
+  border: 0px solid black;
+  padding: 10px;
+}
+
+#flash {
+  width: 600px;
+  padding: 5px;
+  font-weight: bold;
+  color: #666;
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+#usernav {
+  text-align: right;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.hiddentext {
+  background-color: black;
+}
+
+.readonly {
+  pointer-events: none;
+}
+
+a {
+  color: #424241;
+}
+
+h1 {
+  color: #434C5E;
+}
+
+h2 {
+  color: #4C566A;
+}
+
+trix-editor {
+  color: black;
+}

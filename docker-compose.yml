@@ -1,0 +1,41 @@
+version: '2.1'
+
+services:
+  onedaydb:
+    container_name: onedaydb
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: oneday
+      MYSQL_USER: oneday
+      MYSQL_PASSWORD: dev
+      MYSQL_ROOT_HOST: "%"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    restart: "no"
+
+  onedayweb:
+    container_name: onedayweb
+    build: .
+    environment:
+      APP_ENV: "development"
+      BUNDLE_PATH: "/home/app/vendor/bundle"
+      BUNDLE_DISABLE_SHARED_GEMS: "true"
+      HOME: "/home/app"
+      DB_USER: oneday
+      DB_PASS: dev
+      DB_HOST: onedaydb
+      DB_DB: oneday
+      RACK_ENV: "development"
+    volumes:
+      - ./:/home/app
+    ports:
+      - 4567:4567
+    links:
+      - "onedaydb"
+    restart: "no"
+    depends_on:
+      onedaydb:
+        condition: service_healthy

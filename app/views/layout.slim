@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title One Day at a Time
+    link rel='stylesheet' type='text/css' href='/css/app.css'
+    link rel='stylesheet' type='text/css' href='/css/trix.css'
+    link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous"
+    script type="text/javascript" src="/js/app.js"
+    script type="text/javascript" src="/js/trix.js"
+  body
+    #content
+      - if @user
+          div id="usernav"
+            p
+              ' signed in as
+              a href='/profile' #{@user.username}
+              ' &nbsp;&nbsp;
+              a href="/write" write today
+              ' &nbsp;&nbsp;
+              a href="/read" read other days
+              ' &nbsp;&nbsp;
+              a href="/signout" sign-out
+      - else
+          div id="usernav"
+            p
+              a href='/signin' sign-in
+              ' &nbsp;&nbsp;
+              a href="/signup" sign-up
+      h1 One Day at a Time
+      - for type in flash.keys
+          div id="flash" class="#{type} alert-box radius"
+            | #{flash[type]}
+      == yield

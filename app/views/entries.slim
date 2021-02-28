@@ -1,0 +1,7 @@
+h2 Read
+
+table
+  - for entry in @entries
+    tr
+      td
+        a href="/write/#{entry.date.strftime("%Y-%m-%d")}" #{entry.date.strftime("%Y-%m-%d")}

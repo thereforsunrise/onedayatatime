@@ -1,0 +1,62 @@
+version: '2.1'
+
+services:
+  onedaydb:
+    container_name: onedaydb
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: oneday
+      MYSQL_PASSWORD: "shu4kuo1etoemi1Z"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: "Jaiwae7mei5keeng"
+      MYSQL_USER: oneday
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    restart: "no"
+    networks:
+      - web
+    volumes:
+      - onedaydbdata:/var/lib/mysql
+
+  onedayweb:
+    container_name: onedayweb
+    build: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.oneday.entrypoints=websecure"
+      - "traefik.http.routers.oneday.rule=Host(`oneday.thereforsunrise.com`)"
+      - "traefik.http.routers.oneday.tls=true"
+      - "traefik.http.services.oneday.loadbalancer.server.port=4567"
+    environment:
+      APP_ENV: "production"
+      BUNDLE_DISABLE_SHARED_GEMS: "true"
+      BUNDLE_PATH: "/home/app/vendor/bundle"
+      DB_DB: oneday
+      DB_HOST: onedaydb
+      DB_PASS: "shu4kuo1etoemi1Z"
+      DB_USER: oneday
+      HOME: "/home/app"
+      RACK_ENV: "production"
+    ports:
+      - 4567
+    volumes:
+      - ./:/home/app
+    links:
+      - "onedaydb"
+    restart: "no"
+    depends_on:
+      onedaydb:
+        condition: service_healthy
+    networks:
+      - web
+
+volumes:
+  onedaydbdata:
+
+networks:
+  web:
+    external:
+      name: myproxy_webgateway

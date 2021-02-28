@@ -1,0 +1,10 @@
+h2 Brain Dump
+
+form class="pure-form pure-form-stacked" action="/dump" method="post"
+  == csrf_tag
+  input type="hidden" name="_method" value="PUT"
+  input id="x" value="" type="hidden" name="content"
+  div id="toolbar" class="toolbar"
+  trix-editor toolbar="toolbar" input="x" id="editor" class="trix-content"
+  br
+  button type="submit" class="pure-button" id="add" name="Add" Add
